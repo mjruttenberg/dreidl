@@ -1,11 +1,13 @@
 # set up global variables
 player1turn = true
 tokens = 6 # must be an even number. Set low initially so we can evaluate results.
+sides = ["[N]un","[G]immel","[H]ay","[S]hin"]
 
 #assumes numberOfPlayers = 2
 player1tokens = tokens/2 
 player2tokens = tokens/2
 pot = 0 # establish the kitty
+
 
 puts "Player 1's current tokens: #{player1tokens}"
 puts "Player 2's current tokens: #{player2tokens}"
@@ -22,6 +24,8 @@ while player1tokens > 0 and player1tokens> 0
     player1tokens -= 1 # pay to play
 
     # roll dice contraining 4 faces: N, G, H, S
+    roll = rand(0..3)
+    puts "\nYou rolled '#{sides[roll]}'\n\n"
       # roll N (nun): do nothing
       # roll G (gimmel): take the pot
       # roll H (hay): get half the pot/kitty
