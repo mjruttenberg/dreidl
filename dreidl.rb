@@ -34,7 +34,6 @@ while player1tokens > 0 and player1tokens> 0
     # determine result
       # determine if player lost
 
-    player1tokens -=1
     puts "Player 1 tokens left = #{player1tokens}"
     if player1tokens <=0
       puts "You are out of tokens. You lose. Player 2 wins"
@@ -54,6 +53,8 @@ while player1tokens > 0 and player1tokens> 0
     puts "---------------------\nPlayer 2's turn\n\n"
 
     # roll dice contraining 4 faces: N, G, H, S
+    roll = rand(0..3)
+    puts "\nYou rolled '#{sides[roll]}'\n\n"
       # roll N (nun): do nothing
       # roll G (gimmel): take the pot
       # roll H (hay): get half the pot/kitty
