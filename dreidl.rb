@@ -23,7 +23,7 @@ while player1tokens > 0 and player1tokens> 0
     pot += 1 # put a token in the pot. Pay to play.
     player1tokens -= 1 # pay to play
 
-    # roll dice contraining 4 faces: N, G, H, S
+    # roll dice containing 4 faces: N, G, H, S
     roll = rand(0..3)
     puts "\nYou rolled '#{sides[roll]}'\n\n"
 
@@ -73,7 +73,7 @@ while player1tokens > 0 and player1tokens> 0
   else
     puts "---------------------\nPlayer 2's turn\n\n"
 
-    # roll dice contraining 4 faces: N, G, H, S
+    # roll dice containing 4 faces: N, G, H, S
     roll = rand(0..3)
     puts "\nYou rolled '#{sides[roll]}'\n\n"
     
