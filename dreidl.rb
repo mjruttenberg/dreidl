@@ -1,115 +1,133 @@
 def rollDice
   sides = ["n","g","h","s"]
-    # roll dice containing 4 faces: N, G, H, S
+
+  #roll dice and act
   roll = rand(0..3)
   puts "\nYou rolled '#{sides[roll]}'\n\n"
 
-  # determine roll outcomes
   case sides[roll]
-    # roll N (nun): do nothing
     when "n"
       puts  "Nun. No action required\n\n"
-    # roll G (gimmel): take the pot
     when "g"
-      puts "Gimmel. You win the pot of #{@pot} tokens\n\n"
+      puts "Gimmel. You win the pot containing #{@pot} token(s). We can't have an empty pot, so we put a token in the pot.\n\n"
       @currentplayertokens += @pot
       @pot = 0
-    # roll H (hay): get half the pot/kitty. If the pot has an odd number, you win half + 1 tokens
+      @currentplayertokens -= 1 #replenish the pot with a token
+      @pot += 1
     when "h"
+      puts "Hay. You win half the pot. If the pot has an odd number, you win half + 1\n\n"
       if @pot % 2 > 0
-        puts "Hay. You win half the pot, so you win #{(@pot/2)+1} token(s)\n\n"
         @currentplayertokens += (@pot/2)+1
+        puts "You win #{(@pot/2)+1} token(s)"
         @pot -= (@pot/2)+1
       else
-        puts "Hay. You win half the pot, so you win #{@pot/2} token(s)\n\n"
         @currentplayertokens += @pot/2
+        puts "You win #{@pot/2} token(s)"
         @pot -= @pot/2
       end
-    # roll S (shin): put a token in the kitty
     when "s"
       puts "Shin. Put a token into the pot\n\n"
       @currentplayertokens -= 1
       @pot += 1
   end
+  #return @currentplayertokens
 end
 
-# set up global variables
-player1turn = true
-tokens = 6 # must be an even number. Set low initially so we can evaluate results.
-# sides: see helper file
 
-#assumes numberOfPlayers = 2
-player1tokens = tokens/2 
+# setup game
+tokens = 20 # must be an even number
+player1tokens = tokens/2
 player2tokens = tokens/2
-@pot = 0 # establish the kitty
-
+@pot = 0
+rounds = 0
 
 puts "Player 1's current tokens: #{player1tokens}"
 puts "Player 2's current tokens: #{player2tokens}"
 puts "In the pot: #{@pot}\n\n"
 
+# who is the current player
+player1turn = true
 
-# loop through the players
-while player1tokens > 0 and player2tokens> 0
-  if player1turn == true
-    puts "---------------------\nPlayer 1's turn\n\n"
+while (player1tokens > 0 || player2tokens > 0)  #if either player has at least 1 token
 
-    # make the token count generic so we can use it in the rollDice method
+	if player1turn == true
+    rounds += 1
+    #currentplayer = 1
     @currentplayertokens = player1tokens
+		puts "---------------------\nPlayer 1's turn\n\n"
 
     puts "You put 1 token in the pot to access play\n\n"
-    @pot += 1 # put a token in the pot. Pay to play.
-    @currentplayertokens -= 1 # pay to play
+	  @pot += 1 # put a token in the pot. Pay to play.
+	  @currentplayertokens -= 1 # pay to play
 
-    # call the helper rollDice method
+	  puts "You have #{@currentplayertokens} token(s) left\n\n"
+
+	  if @pot == 1
+	  	puts "There is now 1 token in the pot\n\n"
+	  else
+	  	puts "There are now #{@pot} tokens in the pot\n\n"
+	  end
+
+    # roll the dice
     rollDice
 
-    # determine if player lost
-    if @currentplayertokens <=0
-      puts "Oy vey! You are out of tokens. YOU LOSE. ***Player 2 wins!***"
-      break # end the while loop
-    end
+    # check if player has any tokens left. If not, end the game.
+	  if @currentplayertokens <= 0
+	    puts "Sorry, you have no tokens left, you lost the game. Player 2 WINS!!!"
+      puts "\nThis game took #{rounds} rounds"
+      break # end the WHILE loop
+	  end
 
     #dump the current token tally to the current player 
     player1tokens = @currentplayertokens
 
-    puts "\n\n***END OF PLAYER 1'S TURN***\n\n"
-    puts "Player 1's current total: #{player1tokens}"
-    puts "Player 2's current total: #{player2tokens}"
-    puts "In the pot: #{@pot}\n\n"
-
-    # switch player
+    # switch player at the end of your turn
     player1turn = !player1turn
 
-  else
-    puts "---------------------\nPlayer 2's turn\n\n"
+	  puts "\n\n***END OF PLAYER 1'S TURN***\n\n"
+	  puts "Player 1's current total: #{player1tokens}"
+	  puts "Player 2's current total: #{player2tokens}"
+	  puts "In the pot: #{@pot}\n\n"
 
-    # make the token count generic so we can use it in the rollDice method
+  end
+
+  # action player2#s turn
+	if player1turn == false
     @currentplayertokens = player2tokens
+	  puts "---------------------\nPlayer 2's turn\n\n"
 
     puts "You put 1 token in the pot to access play\n\n"
-    @pot += 1 # put a token in the pot. Pay to play.
-    @currentplayertokens -= 1 # pay to play
+	  @pot += 1 # put a token in the pot. Pay to play.
+	  @currentplayertokens -= 1 # pay to play
 
-    # call the helper rollDice method
+	  puts "You have #{@currentplayertokens} token(s) left\n\n"
+
+	  if @pot == 1
+	  	puts "There is now 1 token in the pot\n\n"
+	  else
+	  	puts "There are now #{@pot} tokens in the pot\n\n"
+	  end
+
+    # roll the dice
     rollDice
 
-    # determine if player lost
-    if player2tokens <=0
-      puts "Oy vey! You are out of tokens. YOU LOSE. ***Player 1 wins!***"
-      break # end the while loop
+	  # check if player has any tokens left. If not, end the game.
+	  if @currentplayertokens <= 0
+      puts "Sorry, you have no tokens left, you lost the game. Player 1 WINS!!!"
+      puts "\nThis game took #{rounds} rounds"
+      break # end the WHILE loop
     end
 
-    #dump the current token tally to the current player 
+    #dump the current token tally to the current player
     player2tokens = @currentplayertokens
+
+    # switch player at the end of your turn
+    player1turn = !player1turn
 
     puts "\n\n***END OF PLAYER 2'S TURN***\n\n"
     puts "Player 1's current total: #{player1tokens}"
     puts "Player 2's current total: #{player2tokens}"
     puts "In the pot: #{@pot}\n\n"
 
-    # switch player
-    player1turn = !player1turn
-  end
-
+	end
 end
