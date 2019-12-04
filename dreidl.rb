@@ -50,33 +50,33 @@ player1turn = true
 
 while (player1tokens > 0 || player2tokens > 0)  #if either player has at least 1 token
 
-	if player1turn == true
+  if player1turn == true
     rounds += 1
     #currentplayer = 1
     @currentplayertokens = player1tokens
-		puts "---------------------\nPlayer 1's turn\n\n"
+    puts "---------------------\nPlayer 1's turn\n\n"
 
     puts "You put 1 token in the pot to access play\n\n"
-	  @pot += 1 # put a token in the pot. Pay to play.
-	  @currentplayertokens -= 1 # pay to play
+    @pot += 1 # put a token in the pot. Pay to play.
+    @currentplayertokens -= 1 # pay to play
 
-	  puts "You have #{@currentplayertokens} token(s) left\n\n"
+    puts "You have #{@currentplayertokens} token(s) left\n\n"
 
-	  if @pot == 1
-	  	puts "There is now 1 token in the pot\n\n"
-	  else
-	  	puts "There are now #{@pot} tokens in the pot\n\n"
-	  end
+    if @pot == 1
+      puts "There is now 1 token in the pot\n\n"
+    else
+      puts "There are now #{@pot} tokens in the pot\n\n"
+    end
 
     # roll the dice
     rollDice
 
     # check if player has any tokens left. If not, end the game.
-	  if @currentplayertokens <= 0
-	    puts "Sorry, you have no tokens left, you lost the game. Player 2 WINS!!!"
+    if @currentplayertokens <= 0
+      puts "Sorry, you have no tokens left, you lost the game. Player 2 WINS!!!"
       puts "\nThis game took #{rounds} rounds"
       break # end the WHILE loop
-	  end
+    end
 
     #dump the current token tally to the current player 
     player1tokens = @currentplayertokens
@@ -84,35 +84,35 @@ while (player1tokens > 0 || player2tokens > 0)  #if either player has at least 1
     # switch player at the end of your turn
     player1turn = !player1turn
 
-	  puts "\n\n***END OF PLAYER 1'S TURN***\n\n"
-	  puts "Player 1's current total: #{player1tokens}"
-	  puts "Player 2's current total: #{player2tokens}"
-	  puts "In the pot: #{@pot}\n\n"
+    puts "\n\n***END OF PLAYER 1'S TURN***\n\n"
+    puts "Player 1's current total: #{player1tokens}"
+    puts "Player 2's current total: #{player2tokens}"
+    puts "In the pot: #{@pot}\n\n"
 
   end
 
   # action player2#s turn
-	if player1turn == false
+  if player1turn == false
     @currentplayertokens = player2tokens
-	  puts "---------------------\nPlayer 2's turn\n\n"
+    puts "---------------------\nPlayer 2's turn\n\n"
 
     puts "You put 1 token in the pot to access play\n\n"
-	  @pot += 1 # put a token in the pot. Pay to play.
-	  @currentplayertokens -= 1 # pay to play
+    @pot += 1 # put a token in the pot. Pay to play.
+    @currentplayertokens -= 1 # pay to play
 
-	  puts "You have #{@currentplayertokens} token(s) left\n\n"
+    puts "You have #{@currentplayertokens} token(s) left\n\n"
 
-	  if @pot == 1
-	  	puts "There is now 1 token in the pot\n\n"
-	  else
-	  	puts "There are now #{@pot} tokens in the pot\n\n"
-	  end
+    if @pot == 1
+      puts "There is now 1 token in the pot\n\n"
+    else
+      puts "There are now #{@pot} tokens in the pot\n\n"
+    end
 
     # roll the dice
     rollDice
 
-	  # check if player has any tokens left. If not, end the game.
-	  if @currentplayertokens <= 0
+    # check if player has any tokens left. If not, end the game.
+    if @currentplayertokens <= 0
       puts "Sorry, you have no tokens left, you lost the game. Player 1 WINS!!!"
       puts "\nThis game took #{rounds} rounds"
       break # end the WHILE loop
@@ -129,5 +129,5 @@ while (player1tokens > 0 || player2tokens > 0)  #if either player has at least 1
     puts "Player 2's current total: #{player2tokens}"
     puts "In the pot: #{@pot}\n\n"
 
-	end
+  end
 end
